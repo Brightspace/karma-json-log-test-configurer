@@ -4,7 +4,7 @@
   "description": "A module for testing VUI components.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Desire2Learn-Valence/valence-ui-tester.git"
+    "url": "https://github.com/Desire2Learn-Valence/valence-ui-karma-jasmine-tester.git"
   },
   "scripts": {
     "test": "exit 0"
@@ -15,5 +15,15 @@
     "vui"
   ],
   "author": "D2L Corporation",
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "dependencies": {
+    "karma": "^0.12.24",
+    "karma-coverage": "^0.2.6",
+    "karma-directives-preprocessor": "0.0.4",
+    "karma-jasmine": "^0.1.5",
+    "karma-json-fixtures-preprocessor": "0.0.1",
+    "karma-junit-reporter": "^0.2.2",
+    "karma-phantomjs-launcher": "^0.1.4",
+    "q": "^1.0.1"
+  }
 }
