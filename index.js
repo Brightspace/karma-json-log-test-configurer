@@ -40,11 +40,10 @@ var test = function( karmaConfig, isRecordingResults ) {
 			'karma-json-fixtures-preprocessor',
 			'karma-junit-reporter',
 			'karma-phantomjs-launcher',
-			'karma-script-launcher',
 			require('./json-dumper.js')
 		],
 		preprocessors: {
-			'node_modules/vui-tester/matchers.js': ['directives'],
+			'node_modules/vui-karma-jasmine-tester/matchers.js': ['directives'],
 			'test/er/*.json': ['json_fixtures']
 		},
 		reporters: isRecordingResults ? ['json-dumper'] : ['progress','junit','coverage'],
@@ -52,8 +51,8 @@ var test = function( karmaConfig, isRecordingResults ) {
 	})
 
 	karmaConfig.files = karmaConfig.files || [];
-	karmaConfig.files.push( 'node_modules/vui-tester/matchers.js' );
-	karmaConfig.files.push( 'node_modules/vui-tester/differs.js' );
+	karmaConfig.files.push( 'node_modules/vui-karma-jasmine-tester/matchers.js' );
+	karmaConfig.files.push( 'node_modules/vui-karma-jasmine-tester/differs.js' );
 
 	if( fs.existsSync( 'test/er/' ) ) {
 		if( fs.readdirSync( 'test/er/' ).length != 0 ) {
