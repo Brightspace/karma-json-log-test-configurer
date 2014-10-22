@@ -1,5 +1,5 @@
 {
-  "name": "vui-tester",
+  "name": "vui-karma-jasmine-tester",
   "version": "0.0.1",
   "description": "A module for testing VUI components.",
   "repository": {
