@@ -12,10 +12,8 @@ var test = function( karmaConfig, isRecordingResults ) {
 		autoWatch: false,
 		browsers: ['PhantomJS'],
 		coverageReporter: {
-			reporters: [
-				{ type: 'html', dir: 'test/output/coverage/' },
-				{ type: 'cobertura', dir: 'test/output/coverage/' }
-			]
+			reporters: [ { type: 'lcov', dir: 'test/output/coverage/' } ]
+
 		},
 		directivesPreprocess: {
 			flags: {
