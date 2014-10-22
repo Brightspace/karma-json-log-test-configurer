@@ -9,3 +9,4 @@ deploy:
   on:
     tags: true
     repo: Desire2Learn-Valence/valence-ui-karma-jasmine-tester
+    all_branches: true
