@@ -49,8 +49,10 @@ var test = function( karmaConfig, isRecordingResults ) {
 	})
 
 	karmaConfig.files = karmaConfig.files || [];
-	karmaConfig.files.push( 'node_modules/vui-karma-jasmine-tester/matchers.js' );
 	karmaConfig.files.push( 'node_modules/vui-karma-jasmine-tester/differs.js' );
+	karmaConfig.files.push( 'node_modules/vui-karma-jasmine-tester/matchers.js' );
+	karmaConfig.files.push( 'node_modules/vui-karma-jasmine-tester/records.js' );
+
 
 	if( fs.existsSync( 'test/rec/' ) ) {
 		if( fs.readdirSync( 'test/rec/' ).length != 0 ) {
