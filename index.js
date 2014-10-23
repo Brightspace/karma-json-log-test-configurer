@@ -18,14 +18,14 @@ var test = function( karmaConfig, isRecordingResults ) {
 		directivesPreprocess: {
 			flags: {
 				js: {
-					ER_GEN: isRecordingResults == true
+					RECORDING: isRecordingResults == true
 				}
 			}
 		},
 		frameworks: ['jasmine'],
 		jsonFixturesPreprocessor: {
-			variableName: '__ER__',
-			stripPrefix: 'test/er/'
+			variableName: '__RECORDS__',
+			stripPrefix: 'test/rec/'
 		},
 		junitReporter: {
 			outputFile: 'test/output/unit.xml',
@@ -42,7 +42,7 @@ var test = function( karmaConfig, isRecordingResults ) {
 		],
 		preprocessors: {
 			'node_modules/vui-karma-jasmine-tester/matchers.js': ['directives'],
-			'test/er/*.json': ['json_fixtures']
+			'test/rec/*.json': ['json_fixtures']
 		},
 		reporters: isRecordingResults ? ['json-dumper'] : ['progress','junit','coverage'],
 		singleRun: true
@@ -52,12 +52,12 @@ var test = function( karmaConfig, isRecordingResults ) {
 	karmaConfig.files.push( 'node_modules/vui-karma-jasmine-tester/matchers.js' );
 	karmaConfig.files.push( 'node_modules/vui-karma-jasmine-tester/differs.js' );
 
-	if( fs.existsSync( 'test/er/' ) ) {
-		if( fs.readdirSync( 'test/er/' ).length != 0 ) {
-        	karmaConfig.files.push( 'test/er/*.json' );
+	if( fs.existsSync( 'test/rec/' ) ) {
+		if( fs.readdirSync( 'test/rec/' ).length != 0 ) {
+        	karmaConfig.files.push( 'test/rec/*.json' );
     	}
 	} else {
-		fs.mkdirSync( 'test/er/' );
+		fs.mkdirSync( 'test/rec/' );
 	}
 
 	var deferred = Q.defer();
