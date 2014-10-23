@@ -12,7 +12,7 @@ var JSONDumper = function() {
 		var data;
 		for( var file in logObj ) {
 			data = fs.readFileSync("test/er/" + file + ".json", { "flag": "a+"});
-			fileObj = JSON.parse(data.toString());
+			fileObj = data.length != 0 ? JSON.parse(data.toString()) : {};
 			fileObj = objectMerge( fileObj, logObj[file] );
 			fs.writeFileSync("test/er/" + file + ".json", JSON.stringify(fileObj, null, " "));
 		}
