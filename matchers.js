@@ -15,28 +15,35 @@ d2l.vui.matchers = {
 					// @endif
 
 					// @if ER_GEN
-					expectedResult = actual;
 				    var recordingRoot = {};
-				    var recordedActual = recordingRoot;
+				    var recordedLeaf = recordingRoot;
+				    var recordedRoot = recordingRoot;
 				    // @endif
 
 				   	for( var i = 0; i < path.length; i++ ) {
 
 				   		// @if !ER_GEN
 				   		// find the expected result stored at the expected path.
-				       	expectedResult = expectedResult[path[i]] || {};
+						expectedResult = expectedResult[path[i]] || {};
 				   		// @endif
 
 						// @if ER_GEN
 				       	// record a destination path containing the result at the leaf.
-						recordingRoot[path[i]] = (i != path.length - 1) ? {} : expectedResult;
+						recordedLeaf = recordingRoot;
+						recordingRoot[path[i]] = {};
 						recordingRoot = recordingRoot[path[i]];
 					    // @endif
 
 				    };
 
 		       		// @if ER_GEN
-					dump(JSON.stringify(recordedActual));
+					// Clear previous ER leaf.
+					dump(JSON.stringify(recordedRoot));
+					// Record new leaf.
+					recordedLeaf[path[path.length-1]] = actual;
+					dump(JSON.stringify(recordedRoot));
+
+					expectedResult = actual;
 					// @endif
 
 		       		var retStr = "";
