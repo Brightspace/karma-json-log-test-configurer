@@ -3,18 +3,18 @@ d2l.vui = d2l.vui || {};
 
 d2l.vui.matchers = {
 	jasmine: {
-		toMatchER: function() {
+		toMatchRecordedObject: function() {
 			return {
 				compare: function ( actual, expected ) {
 
 					var expectedResult;
 					var path = expected.split(".");
 
-					// @if !ER_GEN
-					expectedResult = __ER__; // will not exist if there are no ERs yet.
+					// @if !RECORDING
+					expectedResult = __RECORDS__; // will not exist if there are no recorded objects yet.
 					// @endif
 
-					// @if ER_GEN
+					// @if RECORDING
 				    var recordingRoot = {};
 				    var recordedLeaf = recordingRoot;
 				    var recordedRoot = recordingRoot;
@@ -22,12 +22,12 @@ d2l.vui.matchers = {
 
 				   	for( var i = 0; i < path.length; i++ ) {
 
-				   		// @if !ER_GEN
+				   		// @if !RECORDING
 				   		// find the expected result stored at the expected path.
 						expectedResult = expectedResult[path[i]] || {};
 				   		// @endif
 
-						// @if ER_GEN
+						// @if RECORDING
 				       	// record a destination path containing the result at the leaf.
 						recordedLeaf = recordingRoot;
 						recordingRoot[path[i]] = {};
@@ -36,8 +36,8 @@ d2l.vui.matchers = {
 
 				    };
 
-		       		// @if ER_GEN
-					// Clear previous ER leaf.
+		       		// @if RECORDING
+					// Clear previous record leaf.
 					dump(JSON.stringify(recordedRoot));
 					// Record new leaf.
 					recordedLeaf[path[path.length-1]] = actual;
