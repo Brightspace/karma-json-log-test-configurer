@@ -18,6 +18,10 @@ d2l.vui.matchers = {
 					d2l.vui.records.setRecord(recordedObjectPath, expectedResult);
 					//@endif
 
+					for( ex in exceptions ) {
+						expectedResult[ex] = exceptions[ex];
+					}
+
 		       		var retStr = "";
 			        for( var p in actual ) {
 						if(actual[p] === expectedResult[p]) {
