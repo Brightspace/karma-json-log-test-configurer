@@ -56,6 +56,10 @@ d2l.vui.differs = {
 		d2l.vui.differs._private.removeDeclassedClone( defaultElement );
 
 		return diff;
+	},
+
+	isUserAgentOS: function( os ) {
+		return navigator.userAgent.indexOf( os ) != -1;
 	}
 
 };

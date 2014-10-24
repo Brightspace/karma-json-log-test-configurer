@@ -4,8 +4,13 @@ var fs = require( 'fs' );
 var karma = require('karma').server;
 var objectMerge = require('object-merge');
 var Q = require('q');
+var dumper = require('./json-dumper')
+
 
 var test = function( karmaConfig, isRecordingResults ) {
+
+	var recordingDir = 'test/rec/';
+	var recordedJSON = recordingDir + "*.json";
 
 	karmaConfig = objectMerge( karmaConfig, {
 		action: 'run',
@@ -25,11 +30,14 @@ var test = function( karmaConfig, isRecordingResults ) {
 		frameworks: ['jasmine'],
 		jsonFixturesPreprocessor: {
 			variableName: '__RECORDS__',
-			stripPrefix: 'test/rec/'
+			stripPrefix: recordingDir
 		},
 		junitReporter: {
 			outputFile: 'test/output/unit.xml',
 			suite: 'unit'
+		},
+		jsonDumper: {
+			outputDirectory: recordingDir
 		},
 		plugins: [
 			'karma-coverage',
@@ -38,11 +46,10 @@ var test = function( karmaConfig, isRecordingResults ) {
 			'karma-json-fixtures-preprocessor',
 			'karma-junit-reporter',
 			'karma-phantomjs-launcher',
-			require('./json-dumper.js')
+			dumper
 		],
 		preprocessors: {
 			'node_modules/vui-karma-jasmine-tester/matchers.js': ['directives'],
-			'test/rec/*.json': ['json_fixtures']
 		},
 		reporters: isRecordingResults ? ['json-dumper'] : ['progress','junit','coverage'],
 		singleRun: true
@@ -53,18 +60,19 @@ var test = function( karmaConfig, isRecordingResults ) {
 	karmaConfig.files.push( 'node_modules/vui-karma-jasmine-tester/matchers.js' );
 	karmaConfig.files.push( 'node_modules/vui-karma-jasmine-tester/records.js' );
 
+	karmaConfig.preprocessors[recordedJSON] = ['json_fixtures'];
 
-	if( fs.existsSync( 'test/rec/' ) ) {
-		if( fs.readdirSync( 'test/rec/' ).length != 0 ) {
-        	karmaConfig.files.push( 'test/rec/*.json' );
+	if( fs.existsSync( recordingDir ) ) {
+		if( fs.readdirSync( recordingDir ).length != 0 ) {
+        	karmaConfig.files.push( recordedJSON );
     	}
 	} else {
-		fs.mkdirSync( 'test/rec/' );
+		fs.mkdirSync( recordingDir );
 	}
 
 	var deferred = Q.defer();
 	karma.start(karmaConfig, function(exitCode) {
-		if( exitCode != 0 ) {
+		if( exitCode ) {
 			deferred.reject();
 		} else {
 			deferred.resolve();

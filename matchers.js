@@ -3,17 +3,18 @@ d2l.vui = d2l.vui || {};
 
 d2l.vui.matchers = {
 	jasmine: {
-		toMatchRecordedObject: function() {
+		toMatchRecordedObjectAt: function() {
 			return {
-				compare: function ( actual, recordedObjectPath ) {
+				compare: function ( actual, recordedObjectPath, exceptions ) {
 
-					var expectedResult = actual;
+					var expectedResult;
 
 					//@if !RECORDING
 					expectedResult = d2l.vui.records.getRecord(recordedObjectPath);
 					//@endif
 
 					//@if RECORDING
+					expectedResult = actual
 					d2l.vui.records.setRecord(recordedObjectPath, expectedResult);
 					//@endif
 
