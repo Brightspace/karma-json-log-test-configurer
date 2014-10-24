@@ -63,8 +63,12 @@ var test = function( karmaConfig, isRecordingResults ) {
 	}
 
 	var deferred = Q.defer();
-	karma.start(karmaConfig, function() {
-		deferred.notify();
+	karma.start(karmaConfig, function(exitCode) {
+		if( exitCode != 0 ) {
+			deferred.reject();
+		} else {
+			deferred.resolve();
+		}
 	});
 	return deferred.promise;
 };
