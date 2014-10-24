@@ -1,5 +1,8 @@
-var JSONDumper = function() {
+var jsonDumper = function( config ) {
+	var path = config['jsonDumper']['outputDirectory'] || 'json-dumper/';
+
 	this.onBrowserLog = function(browser, log, type) {
+
 		if( type != "dump" ) {
 			return;
 		}
@@ -11,15 +14,14 @@ var JSONDumper = function() {
 		var fileObj;
 		var data;
 		for( var file in logObj ) {
-			data = fs.readFileSync("test/rec/" + file + ".json", { "flag": "a+"});
+			data = fs.readFileSync( path + file + ".json", { "flag": "a+"});
 			fileObj = data.length != 0 ? JSON.parse(data.toString()) : {};
 			fileObj = objectMerge( fileObj, logObj[file] );
-			fs.writeFileSync("test/rec/" + file + ".json", JSON.stringify(fileObj, null, " "));
+			fs.writeFileSync( path + file + ".json", JSON.stringify(fileObj, null, " "));
 		}
 	};
-
 };
 
-module.exports = {
-  'reporter:json-dumper': ['type', JSONDumper]
-};
+jsonDumper.$inject = ['config'];
+
+module.exports['reporter:json-dumper'] =  ['type', jsonDumper];
