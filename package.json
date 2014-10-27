@@ -17,6 +17,7 @@
   "author": "D2L Corporation",
   "license": "Apache-2.0",
   "dependencies": {
+    "gulp": "^3.8.9",
     "karma": "^0.12.24",
     "karma-coverage": "^0.2.6",
     "karma-directives-preprocessor": "0.0.4",
