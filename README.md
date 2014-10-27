@@ -34,7 +34,7 @@ gulp.task( 'test', function( ) {
 });
 ```
 
-<a name="mode"></a>Based on the second parameter, it runs in either Record Mode (*true*) or Test Mode (*false* - default).
+Based on the second parameter, it runs in either Record Mode (*true*) or Test Mode (*false* - default).
 
 ```javascript
 gulp.task( 'record', function( ) {
@@ -106,7 +106,11 @@ d2l.vui.records.setRecord(recordedObjectPath, obj);
 ```
 
 ## Matchers
-Functions to use in Jasmine tests to verify object contents.
+Functions to use in Jasmine tests to verify object contents. Add matchers to your test with Jasmine's *addMatchers* function.
+
+```javascript
+jasmine.addMatchers(d2l.vui.matchers.jasmine);
+```
 
 ### Match Recorded Object At
 in a Jasmine test, *toMatchRecordedObject* will record or verify an object at the specified Record Path.
@@ -123,9 +127,14 @@ it( 'contains the same object data', function() {
 Running this matcher with the tester in Record Mode will take the expected object and save it to a file as specified by the Record Path.
 
 #### Test Mode
-Running this matcher with the tester in Test Mode will check the expected object against the file saved at the Record Path and return true if they match.
+Running this matcher with the tester in Test Mode will check the actual object against the file saved at the Record Path and return true if they match.
+
+- Each key in the actual object exists in the record.
+- Each value for each key in the actual object matches the value stored at that key in the record.
+- ***Keys absent from the actual result will not be verified in the record*** 
 
 Running this matcher in Test Mode without records at the Record Path will result in an error and a failed test.
+
 
 #### Exceptions
 Exceptions can be specified to override the value in the recorded result.
