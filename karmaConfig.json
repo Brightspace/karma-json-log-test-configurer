@@ -1,0 +1,37 @@
+{
+	"action": "run",
+	"autoWatch": false,
+	"browsers": ["PhantomJS"],
+	"coverageReporter": {
+		"reporters": [ { "type": "lcov", "dir": "test/output/coverage/" } ]
+
+	},
+	"directivesPreprocess": {
+		"flags": {
+			"js": {
+				"RECORDING": false
+			}
+		}
+	},
+	"frameworks": ["jasmine"],
+	"jsonFixturesPreprocessor": {
+		"variableName": "__RECORDS__"
+	},
+	"junitReporter": {
+		"outputFile": "test/output/unit.xml",
+		"suite": "unit"
+	},
+	"plugins": [
+		"karma-coverage",
+		"karma-directives-preprocessor",
+		"karma-jasmine",
+		"karma-json-fixtures-preprocessor",
+		"karma-junit-reporter",
+		"karma-phantomjs-launcher"
+	],
+	"preprocessors": {
+		"node_modules/vui-karma-jasmine-tester/matchers.js": ["directives"]
+	},
+	"reporters": ["progress","junit","coverage"],
+	"singleRun": true
+}
