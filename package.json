@@ -7,7 +7,7 @@
     "url": "https://github.com/Desire2Learn-Valence/valence-ui-karma-jasmine-tester.git"
   },
   "scripts": {
-    "test": "exit 0"
+    "test": "gulp test"
   },
   "keywords": [
     "d2l",
