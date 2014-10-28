@@ -13,7 +13,7 @@ kConfig.files = [
 	__dirname + '/differs.js',
 	__dirname + '/matchers.js',
 	__dirname + '/records.js'
-]
+];
 
 kConfig.jsonDumper = { "outputDirectory" : recordingDir };
 kConfig.jsonFixturesPreprocessor.stripPrefix = recordingDir;
