@@ -8,7 +8,7 @@ d2l.vui.differs = {
 				return classedElement;
 			}
 
-			var element = classedElement.cloneNode(false);
+			var element = classedElement.cloneNode( false );
 			element.className="";
 			var parent = d2l.vui.differs._private.createDeclassedClone( classedElement.parentNode )
 				.appendChild( element );
@@ -45,14 +45,14 @@ d2l.vui.differs = {
 		}
 	},
 
-	diffDefaultStyle: function( classStyledElement, pseudoElt ) {
+	diffDefaultStyle: function( classStyledElement ) {
 		var defaultElement = d2l.vui.differs._private.createDeclassedClone( classStyledElement );
 
-		var actualComputed = window.getComputedStyle( classStyledElement, pseudoElt || null );
+		var actualComputed = window.getComputedStyle( classStyledElement );
 
-		var defaultComputed = window.getComputedStyle( defaultElement, pseudoElt || null );
+		var defaultComputed = window.getComputedStyle( defaultElement );
 
-		if (!actualComputed || !defaultComputed ) {
+		if ( !actualComputed || !defaultComputed ) {
 			d2l.vui.differs._private.removeDeclassedClone( defaultElement );
 			return null;
 		}
