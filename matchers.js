@@ -24,10 +24,14 @@ d2l.vui.matchers = {
 
 		       		var retStr = "";
 			        for( var p in actual ) {
-						if(actual[p] === expectedResult[p]) {
-							continue;
-						}
-		       			retStr = retStr + "Expected " + p + " to be " + expectedResult[p] + " but got " + actual[p] + " \n";
+						if(actual[p] != expectedResult[p]) {
+		       				retStr = retStr + "Expected " + p + " to be " + expectedResult[p] + " but got " + actual[p] + " \n";
+		       			}
+		       			delete expectedResult[p];
+		       		}
+
+		       		for( var q in expectedResult ) {
+		       			retStr = retStr + "Expected " + q + " to be " + expectedResult[q] + " but got undefined.\n";
 		       		}
 
 					return {
