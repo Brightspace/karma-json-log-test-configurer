@@ -31,7 +31,10 @@ d2l.vui.matchers = {
 		       		}
 
 		       		for( var q in expectedResult ) {
-		       			retStr = retStr + "Expected " + q + " to be " + expectedResult[q] + " but got undefined.\n";
+		       			// ignore nested records
+		       			if( expectedResult[q] !== Object(expectedResult[q]) ) {
+		       				retStr = retStr + "Expected " + q + " to be " + expectedResult[q] + " but got undefined.\n";
+		       			}
 		       		}
 
 					return {
