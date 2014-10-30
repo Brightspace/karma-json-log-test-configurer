@@ -32,7 +32,8 @@
 		describe( 'in testing mode', function() {
 			it( 'retrieves expected results', function() {
 				d2l.vui.matchers.jasmine.toMatchRecordedObjectAt().compare(
-					{ 'key1' : 'value1', 'key2' : 'value2' },
+					{ 'key1' : 'value1',
+					  'key2' : 'value2' },
 					test_record_path
 				);
 				expect(d2l.vui.records.getRecord).toHaveBeenCalled();
@@ -41,7 +42,8 @@
 
 			it( 'returns a pass on matching record', function() {
 				var ret = d2l.vui.matchers.jasmine.toMatchRecordedObjectAt().compare(
-					{ 'key1' : 'value1', 'key2' : 'value2' },
+					{ 'key1' : 'value1',
+					  'key2' : 'value2' },
 					test_record_path
 				);
 				expect(ret.pass).toBeTruthy();
@@ -49,7 +51,8 @@
 
 			it( 'returns a failure on mismatched record value', function() {
 				var ret = d2l.vui.matchers.jasmine.toMatchRecordedObjectAt().compare(
-					{ 'key1' : 'bad' },
+					{ 'key1' : 'bad',
+					  'key2' : 'value2' },
 					test_record_path
 				);
 				expect(ret.pass).toBeFalsy();
@@ -57,23 +60,26 @@
 
 			it( 'returns a failure on missing record key', function() {
 				var ret = d2l.vui.matchers.jasmine.toMatchRecordedObjectAt().compare(
-					{ 'bad' : 'value1' },
+					{ 'key1' : 'value1',
+					  'key2' : 'value2',
+					  'bad' : 'bad' },
 					test_record_path
 				);
 				expect(ret.pass).toBeFalsy();
 			});
 
-			it( 'passes on additional record key', function() {
+			it( 'fails on additional record key', function() {
 				var ret = d2l.vui.matchers.jasmine.toMatchRecordedObjectAt().compare(
 					{ 'key2' : 'value2' },
 					test_record_path
 				);
-				expect(ret.pass).toBeTruthy();
+				expect(ret.pass).toBeFalsy();
 			});
 
 			it( 'passes on a maching exception for a stored record key', function() {
 				var ret = d2l.vui.matchers.jasmine.toMatchRecordedObjectAt().compare(
-					{ 'key1' : 'except' },
+					{ 'key1' : 'except',
+					  'key2' : 'value2' },
 					test_record_path,
 					{ 'key1' : 'except' }
 				);
@@ -82,7 +88,8 @@
 
 			it( 'fails on mismatched exception for a stored record key', function() {
 				var ret = d2l.vui.matchers.jasmine.toMatchRecordedObjectAt().compare(
-					{ 'key1' : 'value1' },
+					{ 'key1' : 'value1',
+					  'key2' : 'value2' },
 					test_record_path,
 					{ 'key1' : 'except' }
 				);
