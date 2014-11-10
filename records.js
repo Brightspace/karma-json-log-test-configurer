@@ -18,17 +18,22 @@ d2l.vui.records = {
 	    var recordedLeaf = recordingRoot;
 	    var recordedRoot = recordingRoot;
 
-	   	for( var i = 0; i < path.length; i++ ) {
+		for( var i = 1; i < path.length; i++ ) {
 			recordedLeaf = recordingRoot;
 			recordingRoot[path[i]] = {};
 			recordingRoot = recordingRoot[path[i]];
 	    };
 
+		var obj = {
+			'name': path[0],
+			'object': recordedRoot
+		};
+
 		// Clear previous record leaf.
-		dump(JSON.stringify(recordedRoot));
+		dump(JSON.stringify(obj));
 		// Record new leaf.
 		recordedLeaf[path[path.length-1]] = record;
-		dump(JSON.stringify(recordedRoot));
+		dump(JSON.stringify(obj));
 	},
 
 	getElementRecordPath: function( elem, branchProperties ) {

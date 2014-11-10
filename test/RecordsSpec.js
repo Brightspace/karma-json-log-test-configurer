@@ -20,12 +20,12 @@
 
 			it( 'dumps a JSON object with the specified key/value leaf', function() {
 				var rec = d2l.vui.records.setRecord( ["file", "branch", "leaf"], {"key": "new"} );
-				expect(window.dump).toHaveBeenCalledWith("{\"file\":{\"branch\":{\"leaf\":{\"key\":\"new\"}}}}");
+				expect(window.dump).toHaveBeenCalledWith("{\"name\":\"file\",\"object\":{\"branch\":{\"leaf\":{\"key\":\"new\"}}}}");
 			});
 
 			it( 'dumps a JSON object with an empty leaf to clear the current value', function() {
 				var rec = d2l.vui.records.setRecord( ["file", "branch", "leaf"], {"key": "new"} );
-				expect(window.dump).toHaveBeenCalledWith("{\"file\":{\"branch\":{\"leaf\":{}}}}");
+				expect(window.dump).toHaveBeenCalledWith("{\"name\":\"file\",\"object\":{\"branch\":{\"leaf\":{}}}}");
 			});
 		});
 
