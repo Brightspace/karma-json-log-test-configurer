@@ -1,7 +1,6 @@
-var d2l = d2l || {};
-d2l.vui = d2l.vui || {};
+var vui = vui || {};
 
-d2l.vui.records = {
+vui.records = {
 	getRecord : function( path ) {
 		record = __RECORDS__; // will not exist if there are no recorded objects yet.
 

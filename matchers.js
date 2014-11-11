@@ -1,49 +1,35 @@
-var d2l = d2l || {};
-d2l.vui = d2l.vui || {};
+var vui = vui || {};
+vui.matchers = vui.matchers || {};
 
-d2l.vui.matchers = {
-	jasmine: {
-		toMatchRecordedObjectAt: function() {
-			return {
-				compare: function ( actual, recordedObjectPath, exceptions ) {
+vui.matchers.jasmine = {
+	toMatchRecordedObjectAt: function() {
+		return {
+			compare: function ( actual, recordedObjectPath, exceptions ) {
 
-					var expectedResult;
+				var expectedResult;
 
-					//@if !RECORDING
-					expectedResult = d2l.vui.records.getRecord(recordedObjectPath);
-					//@endif
+				//@if !RECORDING
+				expectedResult = vui.records.getRecord(recordedObjectPath);
+				//@endif
 
-					//@if RECORDING
-					expectedResult = actual
-					d2l.vui.records.setRecord(recordedObjectPath, expectedResult);
-					//@endif
+				//@if RECORDING
+				expectedResult = actual
+				vui.records.setRecord(recordedObjectPath, expectedResult);
+				//@endif
 
-					for( ex in exceptions ) {
-						expectedResult[ex] = exceptions[ex];
-					}
+				var diff = vui.differs.json.diffLogs( actual, expectedResult, exceptions );
 
-		       		var retStr = "";
-			        for( var p in actual ) {
-						if(actual[p] != expectedResult[p]) {
-		       				retStr = retStr + "Expected " + p + " to be " + expectedResult[p] + " but got " + actual[p] + " \n";
-		       			}
-		       			delete expectedResult[p];
-		       		}
-
-		       		for( var q in expectedResult ) {
-		       			// ignore nested records
-		       			if( expectedResult[q] !== Object(expectedResult[q]) ) {
-		       				retStr = retStr + "Expected " + q + " to be " + expectedResult[q] + " but got undefined.\n";
-		       			}
-		       		}
-
-					return {
-						pass: retStr == "",
-						message: retStr
-					};
-
+	       		var retStr = "";
+				for( d in diff ) {
+					retStr = "Expected " + d + " to be " + diff[d].expected + " but got " + diff[d].actual;
 				}
-			};
-		}
+
+				return {
+					pass: retStr == "",
+					message: retStr
+				};
+
+			}
+		};
 	}
 };

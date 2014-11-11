@@ -1,7 +1,7 @@
-var d2l = d2l || {};
-d2l.vui = d2l.vui || {};
+var vui = vui || {};
+vui.differs = vui.differs || {};
 
-d2l.vui.differs = {
+vui.differs.dom = {
 	_private: {
 		createDeclassedClone: function( classedElement ) {
 			if( classedElement == document.body ) {
@@ -10,7 +10,7 @@ d2l.vui.differs = {
 
 			var element = classedElement.cloneNode( false );
 			element.className="";
-			var parent = d2l.vui.differs._private.createDeclassedClone( classedElement.parentNode )
+			var parent = vui.differs.dom._private.createDeclassedClone( classedElement.parentNode )
 				.appendChild( element );
 
 			return element;
@@ -46,7 +46,7 @@ d2l.vui.differs = {
 	},
 
 	diffDefaultStyle: function( classStyledElement ) {
-		var defaultElement = d2l.vui.differs._private.createDeclassedClone( classStyledElement );
+		var defaultElement = vui.differs.dom._private.createDeclassedClone( classStyledElement );
 
 		var actualComputed = window.getComputedStyle( classStyledElement );
 
@@ -57,9 +57,9 @@ d2l.vui.differs = {
 			return null;
 		}
 
-		var diff = d2l.vui.differs._private.getStyleDeclarationDiff( actualComputed, defaultComputed );
+		var diff = vui.differs.dom._private.getStyleDeclarationDiff( actualComputed, defaultComputed );
 
-		d2l.vui.differs._private.removeDeclassedClone( defaultElement );
+		vui.differs.dom._private.removeDeclassedClone( defaultElement );
 
 		return diff;
 	},
@@ -68,4 +68,39 @@ d2l.vui.differs = {
 		return navigator.userAgent.indexOf( os ) != -1;
 	}
 
+};
+
+vui.differs.json = {
+	diffLogs: function ( actualLog, expectedLog, exceptions ) {
+
+		var expected = JSON.parse(JSON.stringify(expectedLog));
+		var diff = {};
+
+		for( ex in exceptions ) {
+			expected[ex] = exceptions[ex];
+		}
+
+		var retStr = "";
+	    for( var p in actualLog ) {
+			if(actualLog[p] != expected[p]) {
+				diff[p] = {
+					"expected" : expected[p],
+					"actual" : actualLog[p]
+				};
+			}
+			delete expected[p];
+		}
+
+		for( var q in expected ) {
+			// ignore nested objects
+			if( expected[q] !== Object(expected[q]) ) {
+				diff[p] = {
+					"expected" : expected[q],
+					"actual": "undefined"
+				};
+			}
+		}
+
+		return diff;
+	}
 };

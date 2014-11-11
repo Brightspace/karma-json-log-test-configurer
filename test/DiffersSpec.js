@@ -20,19 +20,19 @@
 		});
 
 		it( 'reports no differences for an element with no class styles', function() {
-			var diff = d2l.vui.differs.diffDefaultStyle( elem );
+			var diff = vui.differs.dom.diffDefaultStyle( elem );
 			expect(diff).toEqual({});
 		});
 
 		it( 'reports no differences for an element with a styleless class', function() {
 			elem.className = "class-name";
-			var diff = d2l.vui.differs.diffDefaultStyle( elem );
+			var diff = vui.differs.dom.diffDefaultStyle( elem );
 			expect(diff).toEqual({});
 		});
 
 		it( 'reports style difference for an element with a class style', function() {
 			elem.className = "class-style";
-			var diff = d2l.vui.differs.diffDefaultStyle( elem );
+			var diff = vui.differs.dom.diffDefaultStyle( elem );
 			for( var style in diff ) {
 				expect(diff[style]).toBe('rgb(171, 205, 239)');
 			}
@@ -40,7 +40,7 @@
 
 		it( 'reports style difference for an element with a class style and a styleless class', function() {
 			elem.className = "class-style class-name";
-			var diff = d2l.vui.differs.diffDefaultStyle( elem );
+			var diff = vui.differs.dom.diffDefaultStyle( elem );
 			for( var style in diff ) {
 				expect(diff[style]).toBe('rgb(171, 205, 239)');
 			}
@@ -49,7 +49,7 @@
 		it( 'compares class styles inherited from parents', function() {
 			elem.className = "class-style";
 
-			var diff = d2l.vui.differs.diffDefaultStyle( child );
+			var diff = vui.differs.dom.diffDefaultStyle( child );
 			for( var style in diff ) {
 				expect(diff[style]).toBe('rgb(254, 220, 186)');
 			}
