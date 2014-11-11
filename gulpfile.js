@@ -2,7 +2,6 @@ var fs = require('fs');
 var gulp = require('gulp');
 var karma = require('karma').server;
 var Q = require('q');
-var dumper = require('vui-karma-json-log-reporter');
 var kConfig = JSON.parse(fs.readFileSync(__dirname + '/karmaConfig.json').toString());
 
 var recordingDir = 'test/rec/';
@@ -15,15 +14,11 @@ kConfig.files = [
 	__dirname + '/records.js'
 ];
 
-kConfig.jsonLogReporter = { "outputPath" : recordingDir };
 kConfig.jsonFixturesPreprocessor.stripPrefix = recordingDir;
 
-kConfig.plugins.push(dumper);
 kConfig.preprocessors[recordedJSON] = ['json_fixtures'];
 kConfig.preprocessors[__dirname + '/matchers.js'] = ["directives"];
 kConfig.preprocessors[__dirname + '/test/*Spec.js'] = ["directives"];
-
-kConfig.reporters.push('json-log');
 
 if( fs.existsSync( recordingDir ) ) {
 	if( fs.readdirSync( recordingDir ).length != 0 ) {
