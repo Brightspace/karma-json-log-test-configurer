@@ -1,8 +1,7 @@
-var d2l = d2l || {};
-d2l.vui = d2l.vui || {};
+var vui = vui || {};
+vui.matchers = vui.matchers || {};
 
-d2l.vui.matchers = {
-	jasmine: {
+vui.matchers.jasmine = {
 		toMatchRecordedObjectAt: function() {
 			return {
 				compare: function ( actual, recordedObjectPath, exceptions ) {
@@ -10,12 +9,12 @@ d2l.vui.matchers = {
 					var expectedResult;
 
 					//@if !RECORDING
-					expectedResult = d2l.vui.records.getRecord(recordedObjectPath);
+				expectedResult = vui.records.getRecord(recordedObjectPath);
 					//@endif
 
 					//@if RECORDING
 					expectedResult = actual
-					d2l.vui.records.setRecord(recordedObjectPath, expectedResult);
+				vui.records.setRecord(recordedObjectPath, expectedResult);
 					//@endif
 
 					for( ex in exceptions ) {
@@ -45,5 +44,4 @@ d2l.vui.matchers = {
 				}
 			};
 		}
-	}
 };

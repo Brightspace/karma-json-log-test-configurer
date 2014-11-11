@@ -11,19 +11,19 @@
 				'key1' : 'value1',
 				'key2' : 'value2'
 			} } };
-			spyOn(d2l.vui.records, 'getRecord').and.returnValue(test_record_object.branch.leaf);
-			spyOn(d2l.vui.records, 'setRecord').and.stub();
+			spyOn(vui.records, 'getRecord').and.returnValue(test_record_object.branch.leaf);
+			spyOn(vui.records, 'setRecord').and.stub();
 		});
 
 		//@if RECORDING
 		describe( 'in record mode', function() {
 			it( 'records expected results', function() {
-				d2l.vui.matchers.jasmine.toMatchRecordedObjectAt().compare(
+				vui.matchers.jasmine.toMatchRecordedObjectAt().compare(
 					{ 'key1' : 'value1', 'key2' : 'value2' },
 					test_record_path
 				);
-				expect(d2l.vui.records.setRecord).toHaveBeenCalled();
-				expect(d2l.vui.records.getRecord).not.toHaveBeenCalled();
+				expect(vui.records.setRecord).toHaveBeenCalled();
+				expect(vui.records.getRecord).not.toHaveBeenCalled();
 			});
 		});
 		//@endif
@@ -31,17 +31,17 @@
 		//@if !RECORDING
 		describe( 'in testing mode', function() {
 			it( 'retrieves expected results', function() {
-				d2l.vui.matchers.jasmine.toMatchRecordedObjectAt().compare(
+				 vui.matchers.jasmine.toMatchRecordedObjectAt().compare(
 					{ 'key1' : 'value1',
 					  'key2' : 'value2' },
 					test_record_path
 				);
-				expect(d2l.vui.records.getRecord).toHaveBeenCalled();
-				expect(d2l.vui.records.setRecord).not.toHaveBeenCalled();
+				expect(vui.records.getRecord).toHaveBeenCalled();
+				expect(vui.records.setRecord).not.toHaveBeenCalled();
 			});
 
 			it( 'returns a pass on matching record', function() {
-				var ret = d2l.vui.matchers.jasmine.toMatchRecordedObjectAt().compare(
+				var ret = vui.matchers.jasmine.toMatchRecordedObjectAt().compare(
 					{ 'key1' : 'value1',
 					  'key2' : 'value2' },
 					test_record_path
@@ -50,7 +50,7 @@
 			});
 
 			it( 'returns a failure on mismatched record value', function() {
-				var ret = d2l.vui.matchers.jasmine.toMatchRecordedObjectAt().compare(
+				var ret = vui.matchers.jasmine.toMatchRecordedObjectAt().compare(
 					{ 'key1' : 'bad',
 					  'key2' : 'value2' },
 					test_record_path
@@ -59,7 +59,7 @@
 			});
 
 			it( 'returns a failure on missing record key', function() {
-				var ret = d2l.vui.matchers.jasmine.toMatchRecordedObjectAt().compare(
+				var ret = vui.matchers.jasmine.toMatchRecordedObjectAt().compare(
 					{ 'key1' : 'value1',
 					  'key2' : 'value2',
 					  'bad' : 'bad' },
@@ -69,7 +69,7 @@
 			});
 
 			it( 'fails on additional record key', function() {
-				var ret = d2l.vui.matchers.jasmine.toMatchRecordedObjectAt().compare(
+				var ret = vui.matchers.jasmine.toMatchRecordedObjectAt().compare(
 					{ 'key2' : 'value2' },
 					test_record_path
 				);
@@ -77,7 +77,7 @@
 			});
 
 			it( 'passes on a maching exception for a stored record key', function() {
-				var ret = d2l.vui.matchers.jasmine.toMatchRecordedObjectAt().compare(
+				var ret = vui.matchers.jasmine.toMatchRecordedObjectAt().compare(
 					{ 'key1' : 'except',
 					  'key2' : 'value2' },
 					test_record_path,
@@ -87,7 +87,7 @@
 			});
 
 			it( 'fails on mismatched exception for a stored record key', function() {
-				var ret = d2l.vui.matchers.jasmine.toMatchRecordedObjectAt().compare(
+				var ret = vui.matchers.jasmine.toMatchRecordedObjectAt().compare(
 					{ 'key1' : 'value1',
 					  'key2' : 'value2' },
 					test_record_path,

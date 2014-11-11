@@ -8,7 +8,7 @@
 
 		describe( 'A get records function', function() {
 			it( 'retrieves a record', function() {
-				var rec = d2l.vui.records.getRecord( ["file", "branch", "leaf"] );
+				var rec = vui.records.getRecord( ["file", "branch", "leaf"] );
 				expect(rec.key).toBe("value");
 			});
 		});
@@ -19,12 +19,12 @@
 			})
 
 			it( 'dumps a JSON object with the specified key/value leaf', function() {
-				var rec = d2l.vui.records.setRecord( ["file", "branch", "leaf"], {"key": "new"} );
+				var rec = vui.records.setRecord( ["file", "branch", "leaf"], {"key": "new"} );
 				expect(window.dump).toHaveBeenCalledWith("{\"name\":\"file\",\"object\":{\"branch\":{\"leaf\":{\"key\":\"new\"}}}}");
 			});
 
 			it( 'dumps a JSON object with an empty leaf to clear the current value', function() {
-				var rec = d2l.vui.records.setRecord( ["file", "branch", "leaf"], {"key": "new"} );
+				var rec = vui.records.setRecord( ["file", "branch", "leaf"], {"key": "new"} );
 				expect(window.dump).toHaveBeenCalledWith("{\"name\":\"file\",\"object\":{\"branch\":{\"leaf\":{}}}}");
 			});
 		});
@@ -39,14 +39,14 @@
 			});
 
 			it( 'provides a path starding with tag name then class name', function() {
-				var path = d2l.vui.records.getElementRecordPath( elem );
+				var path = vui.records.getElementRecordPath( elem );
 				expect(path.length).toBe(2);
 				expect(path[0]).toBe("DIV");
 				expect(path[1]).toBe("className=class-name");
 			});
 
 			it( 'will provide className and tagName only once', function() {
-				var path = d2l.vui.records.getElementRecordPath( elem, ['className', 'tagName'] );
+				var path = vui.records.getElementRecordPath( elem, ['className', 'tagName'] );
 				expect(path.length).toBe(2);
 				expect(path[0]).toBe("DIV");
 				expect(path[1]).toBe("className=class-name");
@@ -54,7 +54,7 @@
 
 			it( 'will will append to tagName and className any branch properties specified', function() {
 				elem.id = "id";
-				var path = d2l.vui.records.getElementRecordPath( elem, ['id'] );
+				var path = vui.records.getElementRecordPath( elem, ['id'] );
 				expect(path.length).toBe(3);
 				expect(path[0]).toBe("DIV");
 				expect(path[1]).toBe("className=class-name");
@@ -63,7 +63,7 @@
 
 			it( 'will reorder className and tagName to be ahead of any branch properties', function() {
 				elem.id = "id";
-				var path = d2l.vui.records.getElementRecordPath( elem, ['id', 'className', 'tagName'] );
+				var path = vui.records.getElementRecordPath( elem, ['id', 'className', 'tagName'] );
 				expect(path.length).toBe(3);
 				expect(path[0]).toBe("DIV");
 				expect(path[1]).toBe("className=class-name");
@@ -71,7 +71,7 @@
 			});
 
 			it( 'will still provide branch property values if unspecified in the node', function() {
-				var path = d2l.vui.records.getElementRecordPath( elem, ['id'] );
+				var path = vui.records.getElementRecordPath( elem, ['id'] );
 				expect(path.length).toBe(3);
 				expect(path[0]).toBe("DIV");
 				expect(path[1]).toBe("className=class-name");
