@@ -8,5 +8,5 @@ deploy:
     secure: kv8rEyl5M5gBRJv5sPWXBZsMuBnO7rKM4ptDHbA7I0aDVZMbz+/z7Z7lgz2TBv+dq6xSI7itRdKS6vAQGNDtwR2vUQsH0k4ZYe4AhH3M9zOwG0bLKCa1qDhZ6zo5FmhnFWoCKrny0zgFKuw5K/PbR6m4lZ4/GnYtNhAEIPCAzwY=
   on:
     tags: true
-    repo: Desire2Learn-Valence/valence-ui-karma-jasmine-tester
+    repo: Brightspace/valence-ui-karma-jasmine-tester
     all_branches: true
