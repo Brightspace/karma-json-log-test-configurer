@@ -4,7 +4,6 @@ var fs = require( 'fs' );
 var karma = require('karma').server;
 var objectMerge = require('object-merge');
 var Q = require('q');
-var dumper = require('vui-karma-json-log-reporter');
 var kConfig = JSON.parse(fs.readFileSync(__dirname + '/karmaConfig.json').toString());
 
 
@@ -16,13 +15,7 @@ var test = function( karmaConfig, isRecordingResults ) {
 	karmaConfig = objectMerge( karmaConfig, kConfig );
 
 	karmaConfig.directivesPreprocess.flags.js = { RECORDING : isRecordingResults == true };
-	karmaConfig.jsonLogReporter = { "outputPath" : recordingDir };
 	karmaConfig.jsonFixturesPreprocessor.stripPrefix = recordingDir;
-
-	if( isRecordingResults ) {
-		karmaConfig.plugins.push(dumper);
-		karmaConfig.reporters = ['json-log'];
-	}
 
 	karmaConfig.files = karmaConfig.files || [];
 	karmaConfig.files.push( __dirname + '/differs.js' );
