@@ -1,54 +1,63 @@
 'use strict';
 
 var fs = require( 'fs' );
-var karma = require('karma').server;
-var objectMerge = require('object-merge');
-var Q = require('q');
-var dumper = require('vui-karma-json-log-reporter');
-var kConfig = JSON.parse(fs.readFileSync(__dirname + '/karmaConfig.json').toString());
 
+var getConfig = function( recordPath, isRecording ) {
+	var config = {
+		directivesPreprocess: {
+			"flags" : {
+				"js" : {
+					"RECORDING" : isRecording
+				}
+			}
+		},
+		files : [
+			{ pattern: __dirname + '/differs.js', served: true,	included: true,	watched: false },
+			{ pattern: __dirname + '/matchers.js', served: true, included: true, watched: false },
+			{ pattern: __dirname + '/records.js', served: true, included: true, watched: false },
+			{ pattern: recordPath + '**/*.json', served: true, included: true, watched: false }
+		],
+		jsonFixturesPreprocessor : {
+			variableName: "__RECORDS__",
+			stripPrefix: recordPath
+		},
+		jsonLogReporter : {
+			"outputPath" : recordPath
+		},
+		reporters: [ ],
+		plugins: [
+			"karma-json-fixtures-preprocessor",
+			"karma-directives-preprocessor",
+			"vui-karma-json-log-reporter"
+		],
+		preprocessors: { }
+	};
 
-var test = function( karmaConfig, isRecordingResults ) {
-
-	var recordingDir = 'test/rec/';
-	var recordedJSON = recordingDir + "*.json";
-
-	karmaConfig = objectMerge( karmaConfig, kConfig );
-
-	karmaConfig.directivesPreprocess.flags.js = { RECORDING : isRecordingResults == true };
-	karmaConfig.jsonLogReporter = { "outputPath" : recordingDir };
-	karmaConfig.jsonFixturesPreprocessor.stripPrefix = recordingDir;
-
-	if( isRecordingResults ) {
-		karmaConfig.plugins.push(dumper);
-		karmaConfig.reporters = ['json-log'];
+	config.preprocessors[__dirname + "/matchers.js"] = ['directives'];
+	config.preprocessors[recordPath + "**/*.json"] = ['json_fixtures'];
+	if( isRecording == true ) {
+		config.reporters.concat('json-log');
 	}
 
-	karmaConfig.files = karmaConfig.files || [];
-	karmaConfig.files.push( __dirname + '/differs.js' );
-	karmaConfig.files.push( __dirname + '/matchers.js' );
-	karmaConfig.files.push( __dirname + '/records.js' );
+	return config;
+}
 
-	karmaConfig.preprocessors[recordedJSON] = ['json_fixtures'];
-	karmaConfig.preprocessors[__dirname + '/matchers.js'] = ["directives"];
+var addConfig = function( config, recordPath, isRecording ) {
+	var vuiKarmaConfig = getConfig(recordPath, isRecording);
+	var karmaConfig = JSON.parse(JSON.stringify(config));
 
-	if( fs.existsSync( recordingDir ) ) {
-		if( fs.readdirSync( recordingDir ).length != 0 ) {
-        	karmaConfig.files.push( recordedJSON );
-    	}
-	} else {
-		fs.mkdirSync( recordingDir );
+	karmaConfig.files = karmaConfig.files.concat(vuiKarmaConfig.files);
+	karmaConfig.plugins = karmaConfig.plugins.concat(vuiKarmaConfig.plugins);
+	karmaConfig.reporters = karmaConfig.reporters.concat(vuiKarmaConfig.reporters);
+	karmaConfig.directivesPreprocess = vuiKarmaConfig.directivesPreprocess;
+	karmaConfig.jsonFixturesPreprocessor = vuiKarmaConfig.jsonFixturesPreprocessor;
+	karmaConfig.jsonLogReporter = vuiKarmaConfig.jsonLogReporter;
+
+	for( var p in vuiKarmaConfig.preprocessors ) {
+		karmaConfig.preprocessors[p] = vuiKarmaConfig.preprocessors[p];
 	}
 
-	var deferred = Q.defer();
-	karma.start(karmaConfig, function(exitCode) {
-		if( exitCode ) {
-			deferred.reject();
-		} else {
-			deferred.resolve();
-		}
-	});
-	return deferred.promise;
+	return karmaConfig;
 };
 
-module.exports.test = test;
+module.exports.addConfig = addConfig;

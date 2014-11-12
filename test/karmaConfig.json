@@ -1,0 +1,26 @@
+{
+	"action": "run",
+	"autoWatch": false,
+	"browsers": ["PhantomJS"],
+	"coverageReporter": {
+		"reporters": [ { "type": "lcov", "dir": "output/coverage/" } ]
+	},
+	"files" : [ "*Spec.js" ],
+	"frameworks": ["jasmine"],
+	"plugins": [
+		"karma-coverage",
+		"karma-directives-preprocessor",
+		"karma-jasmine",
+		"karma-junit-reporter",
+		"karma-phantomjs-launcher"
+	],
+	"reporters": ["progress","junit","coverage"],
+	"junitReporter": {
+		"outputFile": "output/unit.xml",
+		"suite": "unit"
+	},
+	"preprocessors" : {
+		"*Spec.js" : ["directives"]
+	},
+	"singleRun": true
+}
