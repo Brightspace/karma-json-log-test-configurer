@@ -19,14 +19,16 @@
   "dependencies": {
     "gulp": "^3.8.9",
     "karma": "^0.12.24",
-    "karma-coverage": "^0.2.6",
     "karma-directives-preprocessor": "0.0.4",
-    "karma-jasmine": "^0.2.0",
     "karma-json-fixtures-preprocessor": "0.0.1",
-    "karma-junit-reporter": "^0.2.2",
-    "karma-phantomjs-launcher": "^0.1.4",
     "object-merge": "^2.5.1",
-    "q": "^1.0.1",
+    "q": "^1.1.1",
     "vui-karma-json-log-reporter": "0.0.1"
+  },
+  "devDependencies": {
+    "karma-coverage": "^0.2.6",
+    "karma-jasmine": "^0.2.3",
+    "karma-junit-reporter": "^0.2.2",
+    "karma-phantomjs-launcher": "^0.1.4"
   }
 }
