@@ -8,12 +8,8 @@ gulp.task( 'testRecording', function( ) {
 	karma.start({
 			configFile: __dirname + "/test/recording.karma.conf.js"
 		},
-			function(exitCode) {
-				if( exitCode ) {
-					deferred.reject();
-				} else {
-					deferred.resolve();
-				}
+		function(exitCode) {
+			exitCode ? deferred.reject() : deferred.resolve();
 		}
 	);
 	return deferred.promise;
@@ -24,12 +20,8 @@ gulp.task( 'testTesting', ['testRecording'], function( ) {
 	karma.start({
 			configFile: __dirname + "/test/testing.karma.conf.js"
 		},
-			function(exitCode) {
-				if( exitCode ) {
-					deferred.reject();
-				} else {
-					deferred.resolve();
-				}
+		function(exitCode) {
+			exitCode ? deferred.reject() : deferred.resolve();
 		}
 	);
 	return deferred.promise;
