@@ -26,9 +26,9 @@ var getConfig = function( recordPath, isRecording ) {
 		},
 		reporters: [ ],
 		plugins: [
-			"karma-json-fixtures-preprocessor",
-			"karma-directives-preprocessor",
-			"vui-karma-json-log-reporter"
+			require("karma-json-fixtures-preprocessor"),
+			require("karma-directives-preprocessor"),
+			require("vui-karma-json-log-reporter")
 		],
 		preprocessors: { }
 	};
