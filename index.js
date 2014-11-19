@@ -36,7 +36,7 @@ var getConfig = function( recordPath, isRecording ) {
 	config.preprocessors[__dirname + "/matchers.js"] = ['directives'];
 	config.preprocessors[recordPath + "**/*.json"] = ['json_fixtures'];
 	if( isRecording == true ) {
-		config.reporters.concat('json-log');
+		config.reporters = config.reporters.concat('json-log');
 	}
 
 	return config;
