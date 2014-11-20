@@ -2,7 +2,8 @@
 
 var fs = require( 'fs' );
 
-var getConfig = function( recordPath, isRecording ) {
+var getConfig = function( isRecording ) {
+
 	var config = {
 		directivesPreprocess: {
 			"flags" : {
@@ -15,14 +16,14 @@ var getConfig = function( recordPath, isRecording ) {
 			{ pattern: __dirname + '/differs.js', served: true,	included: true,	watched: false },
 			{ pattern: __dirname + '/matchers.js', served: true, included: true, watched: false },
 			{ pattern: __dirname + '/records.js', served: true, included: true, watched: false },
-			{ pattern: recordPath + '**/*.json', served: true, included: true, watched: false }
+			{ pattern: './rec/**/*.json', served: true, included: true, watched: false }
 		],
 		jsonFixturesPreprocessor : {
 			variableName: "__RECORDS__",
-			stripPrefix: recordPath
+			stripPrefix: 'rec/'
 		},
 		jsonLogReporter : {
-			"outputPath" : recordPath
+			"outputPath" : './rec/'
 		},
 		reporters: [ ],
 		plugins: [
@@ -34,7 +35,7 @@ var getConfig = function( recordPath, isRecording ) {
 	};
 
 	config.preprocessors[__dirname + "/matchers.js"] = ['directives'];
-	config.preprocessors[recordPath + "**/*.json"] = ['json_fixtures'];
+	config.preprocessors["./rec/**/*.json"] = ['json_fixtures'];
 	if( isRecording == true ) {
 		config.reporters = config.reporters.concat('json-log');
 	}
@@ -42,8 +43,8 @@ var getConfig = function( recordPath, isRecording ) {
 	return config;
 }
 
-var addConfig = function( config, recordPath, isRecording ) {
-	var vuiKarmaConfig = getConfig(recordPath, isRecording);
+var addConfig = function( config, isRecording ) {
+	var vuiKarmaConfig = getConfig( isRecording );
 	var karmaConfig = JSON.parse(JSON.stringify(config));
 
 	karmaConfig.files = karmaConfig.files.concat(vuiKarmaConfig.files);
