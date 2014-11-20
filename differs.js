@@ -80,8 +80,7 @@ vui.differs.json = {
 			expected[ex] = exceptions[ex];
 		}
 
-		var retStr = "";
-	    for( var p in actualLog ) {
+		for( var p in actualLog ) {
 			if(actualLog[p] != expected[p]) {
 				diff[p] = {
 					"expected" : expected[p],

@@ -21,7 +21,7 @@ vui.matchers.jasmine = {
 
 	       		var retStr = "";
 				for( d in diff ) {
-					retStr = "Expected " + d + " to be " + diff[d].expected + " but got " + diff[d].actual;
+					retStr = retStr + "Expected " + d + " to be " + diff[d].expected + " but got " + diff[d].actual + "\n";
 				}
 
 				return {
