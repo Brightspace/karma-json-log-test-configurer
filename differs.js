@@ -17,12 +17,13 @@ vui.differs.dom = {
 		},
 
 		removeDeclassedClone: function( declassedElement ) {
-			if( !declassedElement.parent ) {
-				return;
-			}
+		    if( declassedElement == document.body ) {
+		        return;
+		    }
 
-			declassedElement.parent.removeChild( declassedElement );
-			removeDeclassedClone( declassedElement.parent );
+		    var parentNode = declassedElement.parentNode;
+		    parentNode.removeChild( declassedElement );
+		    vui.differs.dom._private.removeDeclassedClone( parentNode );
 		},
 
 		getStyleDeclarationDiff: function( cssStyleDeclarationA, cssStyleDeclarationB ) {
