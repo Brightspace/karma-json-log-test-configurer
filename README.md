@@ -172,9 +172,9 @@ var diff = d2l.vui.differs.diffDefaultStyle( elem, "before" );
 
 ### Code Style
 
-This repository is configured with [EditorConfig](http://editorconfig.org) rules and contributions should make use of them. See the valence-ui [Code Style wiki page](https://github.com/Brightspace/valence-ui-helpers/wiki/Code-Style) for details.
+This repository is configured with [EditorConfig](http://editorconfig.org) rules and contributions should make use of them. See the [VUI Best Practices & Style Guide](https://github.com/Brightspace/valence-ui-docs/wiki/Best-Practices-&-Style-Guide) for more information.
 
 [npm-url]: https://npmjs.org/package/vui-karma-jasmine-tester
-[npm-image]: https://badge.fury.io/js/vui-karma-jasmine-tester.png
+[npm-image]: https://img.shields.io/npm/v/vui-karma-jasmine-tester.svg
 [ci-image]: https://travis-ci.org/Brightspace/valence-ui-karma-jasmine-tester.svg?branch=master
 [ci-url]: https://travis-ci.org/Brightspace/valence-ui-karma-jasmine-tester
