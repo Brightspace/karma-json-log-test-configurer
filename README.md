@@ -176,5 +176,5 @@ This repository is configured with [EditorConfig](http://editorconfig.org) rules
 
 [npm-url]: https://npmjs.org/package/vui-karma-jasmine-tester
 [npm-image]: https://img.shields.io/npm/v/vui-karma-jasmine-tester.svg
-[ci-image]: https://travis-ci.org/Brightspace/valence-ui-karma-jasmine-tester.svg?branch=master
-[ci-url]: https://travis-ci.org/Brightspace/valence-ui-karma-jasmine-tester
+[ci-image]: https://travis-ci.org/Brightspace/karma-json-log-test-configurer.svg?branch=master
+[ci-url]: https://travis-ci.org/Brightspace/karma-json-log-test-configurer
