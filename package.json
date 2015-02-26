@@ -1,10 +1,10 @@
 {
-  "name": "vui-karma-jasmine-tester",
+  "name": "karma-json-log-test-configurer",
   "version": "0.4.0",
-  "description": "A module for testing VUI components.",
+  "description": "A module for configuring Karma tests to use JSON reporting.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Brightspace/valence-ui-karma-jasmine-tester.git"
+    "url": "https://github.com/Brightspace/karma-json-log-test-configurer.git"
   },
   "scripts": {
     "test": "gulp test"
